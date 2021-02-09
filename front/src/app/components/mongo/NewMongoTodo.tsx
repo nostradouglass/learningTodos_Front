@@ -1,5 +1,7 @@
 import React from "react";
 
+import {gql, useMutation} from '@apollo/client'
+
 const NewMongoTodo = () => {
   return (
     <div className="container">
@@ -8,4 +10,14 @@ const NewMongoTodo = () => {
   );
 };
 
-export default NewMongoTodo;
+
+const mutation = gql`
+  mutation AddTodo($todoItem: String) {
+    addTodo(todoItem: $todoItem) {
+      id
+    }
+  }
+`;
+
+
+export default NewMongoTodo

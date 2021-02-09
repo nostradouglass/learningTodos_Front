@@ -38,8 +38,11 @@
     "webpack-dev-server": "^3.11.2"
   },
   "dependencies": {
+    "@apollo/client": "^3.3.9",
     "@types/materialize-css": "^1.0.8",
     "axios": "^0.21.1",
+    "graphql": "^15.5.0",
+    "graphql-tag": "^2.11.0",
     "materialize-css": "^1.0.0-rc.2",
     "moment": "^2.29.1",
     "react": "^17.0.1",

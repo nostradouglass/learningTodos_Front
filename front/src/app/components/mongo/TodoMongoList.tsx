@@ -1,8 +1,34 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import ListItem from '../ListItem'
+import ListItem from "../ListItem";
+import { gql, useQuery } from "@apollo/client";
+import { fetchTodos } from "../queries/fetchTodos";
 
 const TodoMongoList = () => {
+  const { loading, error, data } = useQuery(fetchTodos);
+
+  const mapTodosList = () => {
+    if (loading) {
+      return <div>'Loading'</div>;
+    } else {
+      interface todoType {
+        id: string;
+        todoItem: string;
+        completed: boolean;
+      }
+
+      return data.todos.map((todo: todoType) => {
+        return (
+          <ListItem
+            key={todo.id}
+            id={todo.id}
+            todoItem={todo.todoItem}
+            completed={todo.completed}
+          />
+        );
+      });
+    }
+  };
 
   return (
     <ul className="collection with-header ">
@@ -11,8 +37,7 @@ const TodoMongoList = () => {
           Topic <span className="right">completed</span>
         </h4>
       </li>
-      <ListItem id="1" todoItem="TodoItem 1" isCompleted={true} />
-      <ListItem id="2" todoItem="TodoItem 2" isCompleted={false} />
+      {mapTodosList()}
     </ul>
   );
 };

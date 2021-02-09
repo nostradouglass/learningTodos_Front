@@ -6,6 +6,7 @@ module.exports = {
   entry: "./front/src/app/App.tsx",
   target: "web",
   mode: "development",
+  devtool: 'eval-cheap-source-map',
   output: {
     path: path.resolve(__dirname, "./front/dist/app/"),
     filename: "bundle.js",
