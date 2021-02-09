@@ -1,0 +1,49 @@
+{
+  "name": "learningtodos_front",
+  "version": "1.0.0",
+  "description": "React App using Typescript and graphql. Connects to express/graphqlServer",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack serve --open",
+    "build": "webpack",
+    "watch": "webpack -w"
+  },
+  "keywords": [
+    "react",
+    "typescript",
+    "graphql",
+    "webpack"
+  ],
+  "author": "Kelly Douglass",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.13",
+    "@babel/preset-env": "^7.12.13",
+    "@babel/preset-react": "^7.12.13",
+    "@types/axios": "^0.14.0",
+    "@types/react": "^17.0.1",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.1.7",
+    "babel-loader": "^8.2.2",
+    "css-loader": "^5.0.2",
+    "html-webpack-plugin": "^5.0.0",
+    "sass": "^1.32.6",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "ts-loader": "^8.0.16",
+    "typescript": "^4.1.3",
+    "webpack": "^5.21.2",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "@types/materialize-css": "^1.0.8",
+    "axios": "^0.21.1",
+    "materialize-css": "^1.0.0-rc.2",
+    "moment": "^2.29.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0"
+  }
+}
