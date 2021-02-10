@@ -1,4 +1,6 @@
 
+$light-blue: #03a9f4;
+
 body {
     background-color: #252525;
 }
@@ -10,4 +12,63 @@ body {
 
 .checkBox {
     cursor: pointer;
+    margin: 0 50%;
 }
+
+.newTodoFormBackground {
+    padding: 20px !important;
+    border-radius: 10px;
+}
+
+.title {
+    margin-top: 50px;
+}
+
+.listHeader {
+    margin-bottom: 0px;
+    .listHeaderText {
+        padding-top: 10px;
+    }
+}
+
+.listSelectionTypes {
+    position: relative;
+    bottom: -30px;
+   padding-right: 0px  !important;
+}
+
+.listSubheaderText {
+    margin-bottom: 0px;
+
+    .statusText {
+        position: relative;
+        bottom: -20px;
+    }
+}
+
+.deleteIcon {
+    cursor: pointer;
+    padding: 0 50%;
+}
+
+.todoRow {
+    margin-bottom: 0px;
+}
+
+input[type=submit] {
+    color:white;
+}
+
+
+// Format the slider. overide materialize css
+input[type='range'] {
+    height: 10px;
+  }
+
+  .slider::-webkit-slider-thumb {
+    background:  $light-blue !important; /* Green background */
+  }
+  
+  .slider::-moz-range-thumb {
+    background: $light-blue  !important; /* Green background */
+  }

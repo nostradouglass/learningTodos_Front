@@ -44,4 +44,10 @@ module.exports = {
     //   filename: "./src/yourfile.css",
     // }),
   ],
+  devServer: {
+    contentBase: path.join(__dirname, './front/dist/'),
+    compress: true,
+    port: 8080,
+    historyApiFallback: true,
+  },
 };

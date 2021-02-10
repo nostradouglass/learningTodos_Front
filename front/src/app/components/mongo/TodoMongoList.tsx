@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import ListItem from "../ListItem";
 import { gql, useQuery } from "@apollo/client";
-import { fetchTodos } from "../queries/fetchTodos";
+import { FETCH_TODOS } from "../queries/fetchTodos";
 
-const TodoMongoList = () => {
-  const { loading, error, data } = useQuery(fetchTodos);
+type listProps = {
+  typeToShow: string;
+};
+
+const TodoMongoList = ({ typeToShow }: listProps) => {
+  const { loading, error, data } = useQuery(FETCH_TODOS);
 
   const mapTodosList = () => {
     if (loading) {
@@ -15,17 +19,46 @@ const TodoMongoList = () => {
         id: string;
         todoItem: string;
         completed: boolean;
+        percentCompleted: number
       }
 
       return data.todos.map((todo: todoType) => {
-        return (
-          <ListItem
-            key={todo.id}
-            id={todo.id}
-            todoItem={todo.todoItem}
-            completed={todo.completed}
-          />
-        );
+        switch (typeToShow) {
+          case "all":
+            return (
+              <ListItem
+                key={todo.id}
+                id={todo.id}
+                todoItem={todo.todoItem}
+                completed={todo.completed}
+                percentCompleted={todo.percentCompleted}
+              />
+            );
+          case "completed":
+            return todo.completed == true ? (
+              <ListItem
+                key={todo.id}
+                id={todo.id}
+                todoItem={todo.todoItem}
+                completed={todo.completed}
+                percentCompleted={todo.percentCompleted}
+              />
+            ) : (
+              <div key={todo.id}></div>
+            );
+          case "inProgress":
+            return todo.completed == false ? (
+              <ListItem
+                key={todo.id}
+                id={todo.id}
+                todoItem={todo.todoItem}
+                completed={todo.completed}
+                percentCompleted={todo.percentCompleted}
+              />
+            ) : (
+              <div key={todo.id}></div>
+            );
+        }
       });
     }
   };
@@ -33,9 +66,12 @@ const TodoMongoList = () => {
   return (
     <ul className="collection with-header ">
       <li className="collection-header light-blue white-text">
-        <h4>
-          Topic <span className="right">completed</span>
-        </h4>
+        <div className="row listSubheaderText">
+          <div className="col s10"><h4>Topic</h4></div>
+          <div className="col s1 statusText"><h5 className="">status</h5></div>
+          <div className="col s1 statusText"><h5>remove</h5></div>
+        </div>
+        
       </li>
       {mapTodosList()}
     </ul>

@@ -4,7 +4,6 @@
   "description": "React App using Typescript and graphql. Connects to express/graphqlServer",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack serve --open",
     "build": "webpack",
     "watch": "webpack -w"

@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 
-export const fetchTodos = gql`
+export const FETCH_TODOS = gql`
 {
   todos {
     id
