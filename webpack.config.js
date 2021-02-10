@@ -1,6 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: "./front/src/app/App.tsx",
@@ -40,9 +40,11 @@ module.exports = {
       // Load a custom template (lodash by default)
       template: './front/src/index.html'
     }),
-    // new MiniCssExtractPlugin({
-    //   filename: "./src/yourfile.css",
-    // }),
+    new CopyWebpackPlugin({
+      patterns: [
+      {from:'./front/src/app/images/',to:'images'} 
+      ]
+    }), 
   ],
   devServer: {
     contentBase: path.join(__dirname, './front/dist/'),
