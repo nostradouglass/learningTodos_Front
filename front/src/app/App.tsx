@@ -8,6 +8,9 @@ import {
   ApolloProvider,
   HttpLink,
 } from "@apollo/client";
+import firebase from 'firebase/app'
+import {firebaseConfig} from './firebaseConfig'
+firebase.initializeApp(firebaseConfig);
 
 import Home from "./views/Home";
 import TodoMongo from "./views/mongo/TodoMongo";
