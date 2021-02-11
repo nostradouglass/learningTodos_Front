@@ -1,11 +1,23 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, Redirect } from "react-router-dom";
 import TodoMongoList from "./TodoMongoList";
-
-import BackButton from '../../components/backButton'
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const TodoMongo = () => {
   const [selectedButton, setSelectedButton] = useState("inProgress");
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+useEffect(() => {
+  var user = firebase.auth().currentUser;
+    if (user) {
+      // User is signed in.
+      setIsLoggedIn(true)
+    } else {
+      // No user is signed in.
+      setIsLoggedIn(false)
+    }
+})
 
   const inProgressClicked = () => {
     setSelectedButton("inProgress");
@@ -35,8 +47,12 @@ const TodoMongo = () => {
     }
   };
 
+  if (!isLoggedIn) {
+    return <div className="white-text">Please log in</div>
+  } else {
+
   return (
-    <div>
+    <div >
       <div className="container">
         <div className="row listHeader">
           <div className="col s7">
@@ -70,8 +86,13 @@ const TodoMongo = () => {
           <i className="material-icons">add</i>
         </Link>
       </div>
+      {/* <button onClick={() => {
+        firebase.auth().signOut
+        console.log("sign out")
+        } } >logout temp</button> */}
     </div>
   );
+  }
 };
 
 export default TodoMongo;

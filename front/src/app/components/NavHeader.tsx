@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React, { Children, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 type navProps = {
@@ -6,6 +6,8 @@ type navProps = {
 }
 
 const NavHeader = (props: navProps) => {
+
+
     return (
         <div>
         <nav>
@@ -17,15 +19,16 @@ const NavHeader = (props: navProps) => {
               <li>
                 <Link to="/mongo">Todo List (Mongo)</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/postgres">Todo List (Sql)</Link>
-              </li>
+              </li> */}
             </ul>
           </div>
         </nav> 
         {props.children}
         </div>
     )
+
 }
 
 export default NavHeader

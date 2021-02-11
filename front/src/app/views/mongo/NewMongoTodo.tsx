@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from 'react-router-dom'
 import { gql, useMutation } from "@apollo/client";
 import BackButton from "../../components/backButton";
+import firebase from "firebase/app";
+import "firebase/auth";
 
 const NewMongoTodo = () => {
   const [todoItem, setTodoItem] = useState("");
@@ -9,8 +11,19 @@ const NewMongoTodo = () => {
   const [completed, setCompleted] = useState(false);
   const [notes, setNotes] = useState("");
   const [ redirect, setRedirect ] = useState(false)
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [addTodo, { data }] = useMutation(ADD_TODO);
+
+  useEffect(() => {
+    var user = firebase.auth().currentUser;
+      if (user) {
+        // User is signed in.
+        setIsLoggedIn(true)
+      } else {
+        // No user is signed in.
+        setIsLoggedIn(false)
+      }
+  })
 
   const formSubmitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault()
@@ -24,6 +37,8 @@ const NewMongoTodo = () => {
       },
     }).then(() => setRedirect(true))
   };
+
+  if (isLoggedIn) {
   if (!redirect) {
   return (
     <div className="container">
@@ -99,6 +114,9 @@ const NewMongoTodo = () => {
   ) } else {
     return <Redirect to="/mongo"/>
   }
+} else {
+  return <div className="white-text">Please log in</div>
+}
 };
 
 const ADD_TODO = gql`
