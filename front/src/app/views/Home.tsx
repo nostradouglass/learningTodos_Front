@@ -117,7 +117,7 @@ const Home = () => {
           </div>
         </div>
         <div className="parallax">
-          <img src="/images/cubes.jpg" alt="Unsplashed background cubes" />
+          <img src="/images/med/cubes-med.jpg" alt="cubes background" />
         </div>
       </div>
 
@@ -180,8 +180,8 @@ const Home = () => {
 
         <div className="parallax">
           <img
-            src="/images/deskComputers.jpg"
-            alt="Unsplashed background img 2"
+            src="/images/med/deskComputers-med.jpg"
+            alt="desk with computers on it"
           />
         </div>
       </div>
@@ -214,7 +214,7 @@ const Home = () => {
           </div>
         </div>
         <div className="parallax">
-          <img src="/images/computer.jpg" alt="Unsplashed background img 3" />
+          <img src="/images/med/computer-med.jpg" alt="computer with code" />
         </div>
       </div>
 
