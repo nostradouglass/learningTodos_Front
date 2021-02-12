@@ -26,43 +26,45 @@ const TodoMongoDetail = () => {
 
   const showDoneCheck = () => {
     if (data.todo.completed) {
-      return <i className="material-icons right light-blue-text">done_outline</i>
+      return (
+        <i className="material-icons right light-blue-text">done_outline</i>
+      );
     } else {
-      return <div></div>
+      return <div></div>;
     }
-  }
+  };
 
-    if (loading || !isLoggedIn) {
-        return <div className="white-text">Loading...</div>;
-      } else {
-        return (
-          <div className="container">
-            <h4 className="light-blue-text">Todo Mongo Detail</h4>
+  if (loading || !isLoggedIn) {
+    return <div className="white-text">Loading...</div>;
+  } else {
+    return (
+      <div className="container">
+        <h4 className="light-blue-text">Todo Mongo Detail</h4>
 
-            <div className="col s12 m7">
-              <h2 className="header light-blue-text">{data.todo.todoItem}</h2>
-              <div className="card horizontal">
-                <div className="card-image">
-                  <img src="http://lorempixel.com/100/190/nature" />
-                </div>
-                <div className="card-stacked">
-                  <div className="card-content">
-                    <span>Notes: {data.todo.notes}</span>
-                    {showDoneCheck()}
-                  </div>
-                  <div className="card-action">
-                    <a href="#">Add Link to the page for this topic</a>
-                    <div className="right">
-                      <p>Percent Complete: {data.todo.percentComplete}</p>
-                    </div>
-                  </div>
+        <div className="col s12 m7">
+          <h2 className="header light-blue-text">{data.todo.todoItem}</h2>
+          <div className="card horizontal">
+            <div className="card-image">
+              <img src="http://lorempixel.com/100/190/nature" />
+            </div>
+            <div className="card-stacked">
+              <div className="card-content">
+                <span>Notes: {data.todo.notes}</span>
+                {showDoneCheck()}
+              </div>
+              <div className="card-action">
+                <a href="#">Add Link to the page for this topic</a>
+                <div className="right">
+                  <p>Percent Complete: {data.todo.percentComplete}</p>
                 </div>
               </div>
             </div>
-            <BackButton backTo="mongo" />
           </div>
-        );
-  };
+        </div>
+        <BackButton backTo="mongo" />
+      </div>
+    );
+  }
 };
 
 const FETCH_SINGLE_TODO = gql`

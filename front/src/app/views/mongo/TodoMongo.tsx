@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TodoMongoList from "./TodoMongoList";
 import firebase from "firebase/app";
 import "firebase/auth";
 
 const TodoMongo = () => {
   const [selectedButton, setSelectedButton] = useState("inProgress");
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-useEffect(() => {
-  var user = firebase.auth().currentUser;
+  useEffect(() => {
+    var user = firebase.auth().currentUser;
     if (user) {
       // User is signed in.
-      setIsLoggedIn(true)
+      setIsLoggedIn(true);
     } else {
       // No user is signed in.
-      setIsLoggedIn(false)
+      setIsLoggedIn(false);
     }
-})
+  });
 
   const inProgressClicked = () => {
     setSelectedButton("inProgress");
@@ -30,68 +30,72 @@ useEffect(() => {
     setSelectedButton("all");
   };
 
+  const setButtonCss = (buttonType: string) => {
+    return selectedButton == buttonType
+      ? "waves-effect waves-light btn-small blue darken-2"
+      : "waves-effect waves-light btn-small light-blue";
+  };
+
   const setButtonClass = (buttonType: string) => {
     switch (buttonType) {
       case "all":
-        return selectedButton == "all"
-          ? "waves-effect waves-light btn-small blue darken-2"
-          : "waves-effect waves-light btn-small light-blue";
+        return setButtonCss("all");
       case "inProgress":
-        return selectedButton == "inProgress"
-          ? "waves-effect waves-light btn-small blue darken-2"
-          : "waves-effect waves-light btn-small light-blue";
+        return setButtonCss("inProgress");
       case "completed":
-        return selectedButton == "completed"
-          ? "waves-effect waves-light btn-small blue darken-2"
-          : "waves-effect waves-light btn-small light-blue";
+        return setButtonCss("completed");
     }
   };
 
   if (!isLoggedIn) {
-    return <div className="white-text">Please log in</div>
+    return <div className="white-text">Please log in</div>;
   } else {
+    return (
+      <div>
+        <div className="container">
+          <div className="row listHeader">
+            <div className="col s7">
+              <h4 className="light-blue-text listHeaderText">Todo Mongo</h4>
+            </div>
+            <div className="listSelectionTypes right">
+              <a
+                onClick={() => inProgressClicked()}
+                className={setButtonClass("inProgress")}
+              >
+                in progress
+              </a>
+              <a
+                onClick={() => completedClicked()}
+                className={setButtonClass("completed")}
+              >
+                completed
+              </a>
+              <a onClick={() => allClicked()} className={setButtonClass("all")}>
+                All
+              </a>
+            </div>
+          </div>
 
-  return (
-    <div >
-      <div className="container">
-        <div className="row listHeader">
-          <div className="col s7">
-            <h4 className="light-blue-text listHeaderText">Todo Mongo</h4>
-          </div>
-          <div className="listSelectionTypes right">
-            <a
-              onClick={() => inProgressClicked()}
-              className={setButtonClass("inProgress")}
-            >
-              in progress
-            </a>
-            <a
-              onClick={() => completedClicked()}
-              className={setButtonClass("completed")}
-            >
-              completed
-            </a>
-            <a onClick={() => allClicked()} className={setButtonClass("all")}>
-              All
-            </a>
-          </div>
+          <TodoMongoList typeToShow={selectedButton} />
+
+          <Link
+            to="/newMongoTodo"
+            className="btn-floating btn-large waves-effect waves-light light-blue right"
+          >
+            <i className="material-icons">add</i>
+          </Link>
         </div>
-
-        <TodoMongoList typeToShow={selectedButton} />
-
-        <Link
-          to="/newMongoTodo"
-          className="btn-floating btn-large waves-effect waves-light light-blue right"
+        {/* For testing firebase log in out system */}
+        {/* <button
+          onClick={() => {
+            firebase.auth().signOut;
+            console.log("sign out");
+          }}
         >
-          <i className="material-icons">add</i>
-        </Link>
+          logout temp
+        </button> */}
       </div>
-      {/* <button onClick={() => {
-        firebase.auth().signOut
-        console.log("sign out")
-        } } >logout temp</button> */}
-    </div>
-  );
+    );
   }
 };
 

@@ -82,7 +82,11 @@ const TodoMongoList = ({ typeToShow }: listProps) => {
       </ul>
     );
   } else {
-    return <div className="white-text"><h3>Loading...</h3></div>;
+    return (
+      <div className="white-text">
+        <h3>Loading...</h3>
+      </div>
+    );
   }
 };
 

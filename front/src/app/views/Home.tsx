@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Modal from "react-modal";
-import Spinner from '../components/Spinner'
+import Spinner from "../components/Spinner";
 
 import firebase from "firebase/app";
 import "firebase/auth";
@@ -13,16 +13,17 @@ const Home = () => {
   var subtitle: any;
   const [signedIn, setSignedIn] = useState(false);
   const [modalIsOpen, setIsOpen] = useState(false);
-  const [isLoading, setisLoading] = useState(false)
+  const [isLoading, setisLoading] = useState(false);
+  const [loadingError, setLoadingError] = useState(false);
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
     var user = firebase.auth().currentUser;
-    console.log(user);
     if (user) {
-      setSignedIn(true);
+      //setSignedIn(true);
+      //setRedirect(true);
     }
   });
 
@@ -45,19 +46,22 @@ const Home = () => {
 
   const submitLogin = (e: React.SyntheticEvent) => {
     e.preventDefault();
-    setisLoading(true)
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, pass)
       .then((userCredential) => {
         // Signed in
-        setSignedIn(true);
-        setisLoading(false)
         var user = userCredential.user;
-        setSignedIn(true);
-        setRedirect(true);
+        if (user) {
+          setSignedIn(true);
+          setRedirect(true);
+        } else {
+          setLoadingError(true);
+        }
       })
       .catch((error) => {
+        setLoadingError(true);
         var errorCode = error.code;
         var errorMessage = error.message;
       });
@@ -65,12 +69,13 @@ const Home = () => {
 
   const showLoading = () => {
     if (isLoading) {
-      return <Spinner isActive={isLoading} />
+      return <Spinner isActive={isLoading} />;
+    } else if (loadingError) {
+      return <h6>Please try again</h6>;
     } else {
-      return <h1>Login</h1>
+      return <h1 className="loginTitle">Login</h1>;
     }
-  }
-
+  };
 
   if (redirect) {
     return <Redirect to="/mongo" />;
@@ -98,11 +103,9 @@ const Home = () => {
                 >
                   <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Sign In</h2>
 
-
-
                   <div className="login">
-                  {showLoading()}
-                   
+                    {showLoading()}
+
                     <form onSubmit={submitLogin}>
                       <input
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -127,7 +130,7 @@ const Home = () => {
                       <button
                         type="submit"
                         // className="btn btn-primary btn-block btn-large"
-                        className="btn waves-effect waves-light white light-blue-text"
+                        className="btn waves-effect waves-light white light-blue-text signInSubmitBtn"
                       >
                         Sign in
                       </button>
@@ -154,9 +157,8 @@ const Home = () => {
               <HomeItem
                 icon="laptop_mac"
                 title="Front End Knowledge"
-                subText="Html, Css, React, Sass, Webpack, axios"
+                subText="Html, Css, React, Redux, Sass, Webpack, Axios"
               />
-
               <HomeItem
                 icon="storage"
                 title="Back end Knowledge"
@@ -166,7 +168,7 @@ const Home = () => {
                 icon="api"
                 title="Other Skills"
                 subText="Javascript, Typescript, axios, Rest, React Native, Swift,
-                    SwiftUI, AWS, Photoshop, Illustrator"
+                    SwiftUI, AWS, cypress, Photoshop, Illustrator"
               />
             </div>
           </div>
@@ -257,8 +259,8 @@ const customStyles = {
   content: {
     background: "#03a9f4",
     borderRadius: "10px",
-    width: "500px",
-    height: "500px",
+    width: "400px",
+    height: "400px",
     top: "50%",
     left: "50%",
     right: "auto",
