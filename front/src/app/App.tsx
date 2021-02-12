@@ -22,9 +22,11 @@ import NavHeader from "./components/NavHeader";
 
 import "./sass/bundle.scss";
 
+const link = "https://kellydouglass-com-v2.herokuapp.com/graphql" || "http://localhost:4000/graphql/"
+
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache: new InMemoryCache(),
-  link: new HttpLink({ uri: "http://localhost:4000/graphql/" }),
+  link: new HttpLink({ uri: link }),
 });
 
 const App = () => {

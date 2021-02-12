@@ -1,33 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Modal from "react-modal";
+import Spinner from '../components/Spinner'
 
 import firebase from "firebase/app";
 import "firebase/auth";
+import HomeItem from "../components/HomeItem";
 
 Modal.setAppElement("#root");
 
 const Home = () => {
   var subtitle: any;
   const [signedIn, setSignedIn] = useState(false);
-  const [modalIsOpen, setIsOpen] = React.useState(false);
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [isLoading, setisLoading] = useState(false)
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [redirect, setRedirect] = useState(false);
 
-useEffect(() => {
-  var user = firebase.auth().currentUser;
-  console.log(user)
-  if (user) {
-  setSignedIn(true)
-  }
-})
+  useEffect(() => {
+    var user = firebase.auth().currentUser;
+    console.log(user);
+    if (user) {
+      setSignedIn(true);
+    }
+  });
 
   function openModal() {
     if (signedIn) {
-        setRedirect(true);
+      setRedirect(true);
     } else {
-    setIsOpen(true);
+      setIsOpen(true);
     }
   }
 
@@ -42,12 +45,14 @@ useEffect(() => {
 
   const submitLogin = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    setisLoading(true)
     firebase
       .auth()
       .signInWithEmailAndPassword(email, pass)
       .then((userCredential) => {
         // Signed in
         setSignedIn(true);
+        setisLoading(false)
         var user = userCredential.user;
         setSignedIn(true);
         setRedirect(true);
@@ -56,8 +61,16 @@ useEffect(() => {
         var errorCode = error.code;
         var errorMessage = error.message;
       });
-    
   };
+
+  const showLoading = () => {
+    if (isLoading) {
+      return <Spinner isActive={isLoading} />
+    } else {
+      return <h1>Login</h1>
+    }
+  }
+
 
   if (redirect) {
     return <Redirect to="/mongo" />;
@@ -76,13 +89,6 @@ useEffect(() => {
                 <h5 className="header col s12 white-text">Software Engineer</h5>
               </div>
               <div className="row center">
-                {/* <Link
-                to="/mongo"
-                className="btn-large waves-effect waves-light light-blue "
-              >
-                Login
-              </Link> */}
-
                 <Modal
                   isOpen={modalIsOpen}
                   onAfterOpen={afterOpenModal}
@@ -92,8 +98,11 @@ useEffect(() => {
                 >
                   <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Sign In</h2>
 
+
+
                   <div className="login">
-                    <h1>Login</h1>
+                  {showLoading()}
+                   
                     <form onSubmit={submitLogin}>
                       <input
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
@@ -142,47 +151,23 @@ useEffect(() => {
         <div className="container">
           <div className="section">
             <div className="row">
-              <div className="col s12 m4">
-                <div className="icon-block">
-                  <h2 className="center light-blue-text">
-                    <i className="material-icons">laptop_mac</i>
-                  </h2>
-                  <h5 className="center light-blue-text">
-                    Front End Knowledge
-                  </h5>
+              <HomeItem
+                icon="laptop_mac"
+                title="Front End Knowledge"
+                subText="Html, Css, React, Sass, Webpack, axios"
+              />
 
-                  <p className="white-text center-align">
-                    Html, css, React, Sass, Webpack, axios
-                  </p>
-                </div>
-              </div>
-
-              <div className="col s12 m4">
-                <div className="icon-block">
-                  <h2 className="center light-blue-text">
-                    <i className="material-icons">storage</i>
-                  </h2>
-                  <h5 className="center light-blue-text">Back end Knowledge</h5>
-
-                  <p className="white-text center-align">
-                    Node, Express, Mongo, Postgres, mongoose, sequalize, graphql
-                  </p>
-                </div>
-              </div>
-
-              <div className="col s12 m4">
-                <div className="icon-block">
-                  <h2 className="center light-blue-text">
-                    <i className="material-icons">api</i>
-                  </h2>
-                  <h5 className="center light-blue-text">Other Skills</h5>
-
-                  <p className="white-text center-align">
-                    Javascript, Typescript, axios, Rest, React Native, Swift,
-                    SwiftUI, AWS, Photoshop, Illustrator
-                  </p>
-                </div>
-              </div>
+              <HomeItem
+                icon="storage"
+                title="Back end Knowledge"
+                subText="Node, Express, Mongo, Postgres, mongoose, sequalize, graphql"
+              />
+              <HomeItem
+                icon="api"
+                title="Other Skills"
+                subText="Javascript, Typescript, axios, Rest, React Native, Swift,
+                    SwiftUI, AWS, Photoshop, Illustrator"
+              />
             </div>
           </div>
         </div>

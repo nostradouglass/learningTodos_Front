@@ -74,3 +74,17 @@ input[type='range'] {
   .slider::-moz-range-thumb {
     background: $light-blue  !important; /* Green background */
   }
+
+
+  .spinnerBg {
+      position: static;
+      background-color: white !important;
+      width: 100px !important;
+      height: 100px !important;
+      border-radius: 50px;
+
+      .spinner {
+          position: relative;
+          margin: 23px 25px;
+      }
+  }
