@@ -13,6 +13,8 @@ const NewMongoTodo = () => {
   const [redirect, setRedirect] = useState(false); // set to true to redirect to another page. 
   const [isLoggedIn, setIsLoggedIn] = useState(false); // use with firebase
   const [addTodo, { data }] = useMutation(ADD_TODO); 
+  const [officialTechName, setOfficialTechName] = useState("")
+  const [ websiteUrl, setWebsiteUrl] = useState("")
 
   useEffect(() => {
     var user = firebase.auth().currentUser;
@@ -34,6 +36,8 @@ const NewMongoTodo = () => {
         percentComplete: percentComplete,
         completed: completed,
         notes: notes,
+        officalTechName: officialTechName,
+        websiteUrl: websiteUrl
       },
     }).then(() => setRedirect(true));
   };
@@ -131,17 +135,24 @@ const ADD_TODO = gql`
     $completed: Boolean
     $percentComplete: Int
     $notes: String
+    $officalTechName: String
+    $websiteUrl: String
   ) {
     addTodo(
       todoItem: $todoItem
       completed: $completed
       percentComplete: $percentComplete
       notes: $notes
+      officalTechName: $officalTechName
+ 
+    websiteUrl: $websiteUrl
     ) {
       id
       todoItem
       percentComplete
       notes
+      officalTechName
+    websiteUrl
     }
   }
 `;

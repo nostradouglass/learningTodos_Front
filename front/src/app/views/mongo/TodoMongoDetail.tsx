@@ -53,7 +53,7 @@ const TodoMongoDetail = () => {
                 {showDoneCheck()}
               </div>
               <div className="card-action">
-                <a href="#">Add Link to the page for this topic</a>
+                <a href={`http://${data.todo.websiteUrl}`} target="_blank">{data.todo.officalTechName}</a>
                 <div className="right">
                   <p>Percent Complete: {data.todo.percentComplete}</p>
                 </div>
@@ -74,7 +74,9 @@ const FETCH_SINGLE_TODO = gql`
       todoItem
       completed
       percentComplete
-      notes
+      notes,
+      officalTechName,
+      websiteUrl
     }
   }
 `;
