@@ -232,7 +232,7 @@ const Home = () => {
               <div className="col l6 s12">
                 <h5 className="white-text">Kelly Douglass</h5>
                 <p className="grey-text text-lighten-4">
-                  A self taught developer with a continueing interest in
+                  A self taught developer with a continuing interest in
                   learning new skills and technologies.
                 </p>
               </div>
