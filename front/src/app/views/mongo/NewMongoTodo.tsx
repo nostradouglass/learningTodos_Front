@@ -4,6 +4,7 @@ import { gql, useMutation } from "@apollo/client";
 import BackButton from "../../components/backButton";
 import firebase from "firebase/app";
 import "firebase/auth";
+import { FETCH_TODOS } from '../../queries/fetchTodos'
 
 const NewMongoTodo = () => {
   const [todoItem, setTodoItem] = useState(""); 
@@ -38,7 +39,7 @@ const NewMongoTodo = () => {
         notes: notes,
         officalTechName: officialTechName,
         websiteUrl: websiteUrl
-      },
+      }, refetchQueries:[{query: FETCH_TODOS}]
     }).then(() => setRedirect(true));
   };
 
@@ -107,6 +108,30 @@ const NewMongoTodo = () => {
                       className="materialize-textarea"
                     ></textarea>
                     <label htmlFor="textarea1">Notes</label>
+                  </div>
+
+
+
+                  <div>
+                    <label>Name of technology</label>
+                    <input
+                      value={officialTechName}
+                      onChange={(e) => setOfficialTechName(e.target.value)}
+                      placeholder="e.g. Express JS"
+                      type="text"
+                      className="validate"
+                    />
+                  </div>
+
+                  <div>
+                    <label>website url</label>
+                    <input
+                      value={websiteUrl}
+                      onChange={(e) => setWebsiteUrl(e.target.value)}
+                      placeholder="e.g www.expressjs.com"
+                      type="text"
+                      className="validate "
+                    />
                   </div>
 
                   <input

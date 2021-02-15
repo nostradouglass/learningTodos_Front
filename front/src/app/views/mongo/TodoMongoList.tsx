@@ -74,6 +74,7 @@ const TodoMongoList = ({ typeToShow }: listProps) => {
               <h5 className="">status</h5>
             </div>
             <div className="col s1 statusText">
+              
               <h5>remove</h5>
             </div>
           </div>
@@ -89,5 +90,9 @@ const TodoMongoList = ({ typeToShow }: listProps) => {
     );
   }
 };
+
+
+
+
 
 export default TodoMongoList;
