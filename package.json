@@ -45,6 +45,8 @@
     "firebase": "^8.2.6",
     "graphql": "^15.5.0",
     "graphql-tag": "^2.11.0",
+    "jquery": "^3.5.1",
+    "material-design-icons": "^3.0.1",
     "materialize-css": "^1.0.0-rc.2",
     "moment": "^2.29.1",
     "react": "^17.0.1",

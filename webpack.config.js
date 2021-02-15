@@ -1,6 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: "./front/src/app/App.tsx",
@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, "./front/dist/app/"),
     filename: "bundle.js",
-  },
+      },
   resolve: {
     extensions: [".js", ".jsx", ".json", ".ts", ".tsx"],
   },
@@ -27,10 +27,17 @@ module.exports = {
       //     loader: "source-map-loader",
       //   },
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+        exclude: '/node_modules/'
+    },
+      {
         test: /\.scss$/,
         // exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader']
     }
+   
+    
     ],
   },
   plugins: [
@@ -44,7 +51,7 @@ module.exports = {
       patterns: [
       {from:'./front/src/app/images/',to:'images'} 
       ]
-    }), 
+    })
   ],
   devServer: {
     contentBase: path.join(__dirname, './front/dist/'),

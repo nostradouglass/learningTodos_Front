@@ -2,16 +2,20 @@ import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import Modal from "react-modal";
 import Spinner from "../components/Spinner";
-
 import firebase from "firebase/app";
+
 import "firebase/auth";
 import HomeItem from "../components/HomeItem";
 
 Modal.setAppElement("#root");
+import M from 'materialize-css';
 
 const Home = () => {
+
+  var auth = firebase.auth()
+  var user = auth.currentUser;
   var subtitle: any;
-  const [signedIn, setSignedIn] = useState(false);
+
   const [modalIsOpen, setIsOpen] = useState(false);
   const [isLoading, setisLoading] = useState(false);
   const [loadingError, setLoadingError] = useState(false);
@@ -20,15 +24,15 @@ const Home = () => {
   const [redirect, setRedirect] = useState(false);
 
   useEffect(() => {
-    var user = firebase.auth().currentUser;
-    if (user) {
-      //setSignedIn(true);
-      //setRedirect(true);
-    }
+
+    var elems = document.querySelectorAll('.parallax');
+    M.Parallax.init(elems);
   });
 
+  // Click sign in on page to open modal. If user is signed in 
+  // via firebase redirect to todopage automatically.
   function openModal() {
-    if (signedIn) {
+    if (user) {
       setRedirect(true);
     } else {
       setIsOpen(true);
@@ -47,20 +51,21 @@ const Home = () => {
   const submitLogin = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
+    setisLoading(true) // show loading spinner
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, pass)
       .then((userCredential) => {
         // Signed in
-        var user = userCredential.user;
         if (user) {
-          setSignedIn(true);
           setRedirect(true);
         } else {
           setLoadingError(true);
         }
       })
       .catch((error) => {
+        setisLoading(false) // if login error stop spinner and show error
         setLoadingError(true);
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -71,7 +76,7 @@ const Home = () => {
     if (isLoading) {
       return <Spinner isActive={isLoading} />;
     } else if (loadingError) {
-      return <h6>Please try again</h6>;
+      return <h5 className="white-text center-align">Please try again</h5>;
     } else {
       return <h1 className="loginTitle">Login</h1>;
     }

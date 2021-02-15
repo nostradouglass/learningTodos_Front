@@ -92,3 +92,26 @@ input[type='range'] {
   .loginTitle {
       margin-top: 20px;
   }
+
+
+  .homeLink {
+      margin: 0;
+      padding: 10px;
+      cursor: pointer;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+.logoutButton {
+    margin: 0 20px;
+}
+
+::placeholder {
+    color: lightblue;
+    text-shadow: none;
+
+}
+
+input {
+    color: black;
+    text-shadow: none;
+}

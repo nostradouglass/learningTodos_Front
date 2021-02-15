@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import 'materialize-css/dist/css/materialize.min.css'
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import {
   ApolloClient,
