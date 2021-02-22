@@ -166,14 +166,14 @@ const Home = () => {
               />
               <HomeItem
                 icon="storage"
-                title="Back end Knowledge"
-                subText="Node, Express, Mongo, Postgres, mongoose, sequalize, graphql"
+                title="Back End Knowledge"
+                subText="Node, Express, Mongo, Postgres, Mongoose, Sequalize, Graphql"
               />
               <HomeItem
                 icon="api"
                 title="Other Skills"
-                subText="Javascript, Typescript, axios, Rest, React Native, Swift,
-                    SwiftUI, AWS, cypress, Photoshop, Illustrator"
+                subText="Javascript, Typescript, Docker, AWS, Rest, React Native, Swift,
+                    SwiftUI, Cypress, Photoshop, Illustrator"
               />
             </div>
           </div>
@@ -183,7 +183,7 @@ const Home = () => {
           <div className="section no-pad-bot">
             <div className="container">
               <div className="row center">
-                <h5 className="header col s12 light">
+                <h5 className="header col s12 light text-bg">
                   Full Stack development using modern technologies.{" "}
                 </h5>
               </div>
@@ -219,7 +219,7 @@ const Home = () => {
           <div className="section no-pad-bot">
             <div className="container">
               <div className="row center">
-                <h5 className="header col s12 light">
+                <h5 className="header col s12 light text-bg dark-bg">
                   Over five years experience building front and back end
                   systems.
                 </h5>
